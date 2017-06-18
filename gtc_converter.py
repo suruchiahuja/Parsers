@@ -41,6 +41,7 @@ with open(args.output_file, "w") as output_handle:
         #forward_strand_genotypes = gtc.get_base_calls_forward_strand(manifest.snps, manifest.source_strands)
         logr_ratios = gtc.get_logr_ratios()
         ballele_freqs = gtc.get_ballele_freqs()
+        
 
         assert len(genotypes) == len(manifest.names)
         for (name, chrom, map_info,  genotype, logr_ratio, ballele_freq) in zip(manifest.names, manifest.chroms, manifest.map_infos, genotypes, logr_ratios, ballele_freqs):
