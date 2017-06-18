@@ -65,4 +65,3 @@ paste CCDS.squishyexons.capture.output.bed Roche.output.txt > newoutput.bed
 
 less newoutput.bed
 
-
