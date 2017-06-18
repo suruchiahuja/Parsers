@@ -38,4 +38,3 @@ for($i=0;$i<$count1;$i++)
 	$sum+=abs($diff1-$diff2); 	
 }
 print $sum;
-
