@@ -52,4 +52,5 @@ with open(args.output_file, "w") as output_handle:
 
         assert len(genotypes) == len(manifest.names)
         for (name, chrom, map_info, genotype, ref_strand_genotype, source_strand_genotype) in zip(manifest.names, manifest.chroms, manifest.map_infos, genotypes, plus_strand_genotypes, forward_strand_genotypes):
-            output_handle.write(delim.join([name, os.path.basename(gtc_file)[:-4], code2genotype[genotype], ref_strand_genotype, source_strand_genotype]) + "\n")
+            
+	output_handle.write(delim.join([name, os.path.basename(gtc_file)[:-4], code2genotype[genotype], ref_strand_genotype, source_strand_genotype]) + "\n")
