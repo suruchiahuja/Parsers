@@ -1,0 +1,68 @@
+
+### BEDTOOLS INTERSECT - with wao and just default intersect
+
+bedtools intersect -a ../CCDS/hglft_genome_2ead_27cb20.bed -b ../Roche_TargetFiles/MedExome_hg19_capture_targets.bed > CCDS.Exonsoutput.TargetCapture.bed
+
+bedtools intersect -a ../CCDS/hglft_genome_2ead_27cb20.bed -b ../Roche_TargetFiles/MedExome_hg19_empirical_targets.bed > CCDS.Exonsoutput.TargetEmpirical.bed
+
+bedtools intersect -a ../Roche_TargetFiles/MedExome_hg19_capture_targets.bed -b ../Roche_TargetFiles/MedExome_hg19_empirical_targets.bed > Roche.Exonsoutput.CaptureEmpirical.bed
+
+bedtools intersect -a ../CCDS/hglft_genome_2ead_27cb20.bed -b ../Roche_TargetFiles/MedExome_hg19_capture_targets.bed -wao > CCDS.Exonsoutput.TargetCapture.bed.wao
+
+bedtools intersect -a ../CCDS/hglft_genome_2ead_27cb20.bed -b ../Roche_TargetFiles/MedExome_hg19_empirical_targets.bed -wao > CCDS.Exonsoutput.TargetEmpirical.bed.wao
+
+bedtools intersect -a ../Roche_TargetFiles/MedExome_hg19_capture_targets.bed -b ../Roche_TargetFiles/MedExome_hg19_empirical_targets.bed -wao > Roche.Exonsoutput.CaptureEmpirical.bed.wao
+
+
+
+cat CCDS.Exonsoutput.TargetCapture.wao.bed | cut -f 1,2,3 | sort -u | awk '{s+= $3-$2} END {print "sum :" s}' > sum.TargetCapture.wao
+cat CCDS.Exonsoutput.TargetCapture.bed | cut -f 1,2,3 | sort -u | awk '{s+= $3-$2} END {print "sum :" s}' > sum.TargetCapture
+cat CCDS.Exonsoutput.TargetEmpirical.bed | cut -f 1,2,3 | sort -u | awk '{s+= $3-$2} END {print "sum :" s}' > sum.TargetEmpirical
+cat CCDS.Exonsoutput.TargetEmpirical.wao.bed | cut -f 1,2,3 | sort -u | awk '{s+= $3-$2} END {print "sum :" s}' > sum.TargetEmpirical.wao
+cat Roche.Exonsoutput.CaptureEmpirical.wao.bed | cut -f 1,2,3 | sort -u | awk '{s+= $3-$2} END {print "sum :" s}' > sum.Roche.TargetEmpirical.wao
+cat Roche.Exonsoutput.CaptureEmpirical.bed | cut -f 1,2,3 | sort -u | awk '{s+= $3-$2} END {print "sum :" s}' > sum.Roche.TargetEmpirical
+
+# CALCULATING THE SUM
+
+cat hglft_genome_2ead_27cb20.bed | cut -f 1,2,3 | sort -u | awk '{s+= $3-$2} END {print "sum :" s}' > sum.CCDS
+cat MedExome_hg19_empirical_targets.bed | cut -f 1,2,3 | sort -u | awk '{s+= $3-$2} END {print "sum :" s}' > sum.RocheEmpiricalTargets
+cat MedExome_hg19_capture_targets.bed | cut -f 1,2,3 | sort -u | awk '{s+= $3-$2} END {print "sum :" s}' > sum.RocheCaptureTargets
+
+# SORTED BEDFILES 
+
+bedtools intersect -a ../CCDS/hglft_genome_2ead_27cb20.sortedUniq.bed -b CCDS.Exonsoutput.TargetCapture.waonew.bed  -wao > CCDS.Exonsoutput.TargetCapture.waonew1.bed
+cat CCDS.Exonsoutput.TargetCapture.waonew1.bed | cut -f 1,2,3 | sort -u | awk '{s+= $3-$2} END {print "sum :" s}' > sum.TargetCapture.waonew
+
+
+## Parsing the CCDS Target Capture wao new
+
+cut -f2,3 CCDS.Exonsoutput.TargetCapture.waonew.bed > newfile1.txt
+cut -f6,7 CCDS.Exonsoutput.TargetCapture.waonew.bed > newfile2.txt
+
+# parsing the bed file - Rocheparse.pl 
+#and the o/p is stored in -  Roche.output.txt
+
+#Getting the entire file together
+paste CCDS.Exonsoutput.TargetCapture.waonew.bed Roche.output.txt > newoutput.bed
+
+
+
+########################################################
+
+sort -k1,1 -k2,2n ../CCDS/hglft_genome_2ead_27cb20.bed > CCDS.sorted.bed
+
+bedtools merge -i CCDS.sorted.bed > CCDS.squishy.bed
+
+bedtools intersect -a CCDS.squishy.bed -b ../Roche_TargetFiles/MedExome_hg19_capture_targets.bed -wao > CCDS.squishyexons.capture.output.bed
+
+cut -f2,3 CCDS.squishyexons.capture.output.bed > file1.txt
+
+cut -f5,6 CCDS.squishyexons.capture.output.bed > file2.txt
+
+cat CCDS.squishy.bed | awk '{s+= $3-$2} END {print "sum :" s}' > sum.squishy
+
+paste CCDS.squishyexons.capture.output.bed Roche.output.txt > newoutput.bed
+
+
+
+
