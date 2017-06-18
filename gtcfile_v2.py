@@ -379,6 +379,7 @@ class GenotypeCalls:
         """
         return self.__get_generic_array_numpy(GenotypeCalls.__ID_CONTROLS_X, uint16)
     
+    
     def get_control_y_intensities(self):
         """Returns:
             The y intensities of control bead types as a list of integers
