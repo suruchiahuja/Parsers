@@ -117,7 +117,6 @@ def create_vcf_file(vcf_path, sample_ids, gtc_files, manifest):
 #                    allele_2 = genotypes[1]
 #                lgen.write(delim.join([str(sample), str(sample),
 #                    name, str(allele_1), str(allele_2)]) + "\n")
-#
 
 parser = argparse.ArgumentParser("Generate a vcf file from a directory of GTC files")
 parser.add_argument("--group", default='test', help="base name for output files")
