@@ -42,7 +42,6 @@ with open(args.output_file, "w") as output_handle:
         logr_ratios = gtc.get_logr_ratios()
         ballele_freqs = gtc.get_ballele_freqs()
         
-
         assert len(genotypes) == len(manifest.names)
         for (name, chrom, map_info,  genotype, logr_ratio, ballele_freq) in zip(manifest.names, manifest.chroms, manifest.map_infos, genotypes, logr_ratios, ballele_freqs):
             output_handle.write(delim.join([name, chrom, str(map_info), code2genotype[genotype], str(logr_ratio), str(ballele_freq)]) + "\n")
